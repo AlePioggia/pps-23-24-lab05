@@ -22,7 +22,7 @@ trait ChessPiece:
   def move(row: Int, col: Int): Boolean
 
 object ChessPiece:
-  def apply(position: Pair[Int, Int], pieceName: PieceName): ChessPiece = pieceName match {case PieceName.Pawn   => PawnImpl(position) case PieceName.Knight => KnightImpl(position)}
+  def apply(position: Pair[Int, Int], pieceName: PieceName): ChessPiece = pieceName match {case PieceName.Pawn => PawnImpl(position) case PieceName.Knight => KnightImpl(position)}
 
   private case class PawnImpl(var position: Pair[Int, Int]) extends ChessPiece:
     override def move(row: Int, col: Int): Boolean =
