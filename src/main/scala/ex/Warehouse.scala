@@ -60,6 +60,12 @@ trait Warehouse:
     *   otherwise
     */
   def contains(itemCode: Int): Boolean
+  /**
+   *  Optional method
+    *  extracts the tag t in common to all items (if any)
+    * @param t
+    */
+  def sameTag(t: String): String 
 end Warehouse
 
 object Warehouse:
@@ -79,6 +85,9 @@ object Warehouse:
 
     override def searchItems(tag: String): Sequence[Item] =
       items.filter(_.tags.contains(tag))
+
+    override def sameTag(t: String): String = ???
+  
 
 @main def mainWarehouse(): Unit =
   val warehouse = Warehouse()
