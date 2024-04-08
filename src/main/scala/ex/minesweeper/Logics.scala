@@ -55,7 +55,7 @@ object Pawn:
     private case class PawnImpl(var position: Pair[Int, Int]) extends ChessPiece:
         override def move(row: Int, col: Int): Boolean = 
             position = Pair(row, col)
-            position eq Pair(row, col)
+            position == Pair(row, col)
 
 trait PiecesGenerator:
     def generatePawnInArandomPosition(): Pair[Int, Int]

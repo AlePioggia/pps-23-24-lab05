@@ -87,7 +87,10 @@ object Warehouse:
       items.filter(_.tags.contains(tag))
 
     override def sameTag(t: String): String = ???
-  
+
+object ExtractTag:
+  def unapply(items: Sequence[Item]): Option[String] = ???
+
 
 @main def mainWarehouse(): Unit =
   val warehouse = Warehouse()
