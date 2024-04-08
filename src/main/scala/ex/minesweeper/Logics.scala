@@ -58,4 +58,4 @@ object PiecesGenerator:
 
         override def randomPosition(): Pair[Int, Int] = 
             val pos: Pair[Int, Int] = Pair(random.nextInt(size), random.nextInt(size))
-            if (pawnPosition == pos || knightPosition == randomPosition()) then randomPosition() else pos 
+            if pawnPosition == pos || knightPosition == randomPosition() then randomPosition() else pos
