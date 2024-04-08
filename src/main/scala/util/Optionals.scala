@@ -13,22 +13,25 @@ object Optionals:
   extension [A](opt: Optional[A])
     def isEmpty: Boolean = opt match
       case Empty() => true
-      case _ => false
+      case _       => false
 
     def orElse[B >: A](orElse: B): B = opt match
       case Just(a) => a
-      case _ => orElse
+      case _       => orElse
 
     def flatMap[B](f: A => Optional[B]): Optional[B] = opt match
       case Just(a) => f(a)
-      case _ => Empty()
+      case _       => Empty()
 
     def map[B](f: A => B): Optional[B] = opt.flatMap(a => Just(f(a)))
 
     def filter(f: A => Boolean): Optional[A] = opt.flatMap:
       case a if f(a) => Just(a)
-      case _ => Empty()
+      case _         => Empty()
 
+    def optionalToOption(): Option[A] = opt match
+      case Just(a) => Some(a)
+      case _       => None
 
 @main def tryOptionals =
   import Optionals.* // to work with Optionals (to see Optional type)

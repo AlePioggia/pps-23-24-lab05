@@ -1,6 +1,7 @@
 package ex
 
 import util.Optionals.Optional
+import util.Optionals.Optional.*
 import util.Sequences.*
 import util.Sequences.Sequence.*
 
@@ -85,10 +86,17 @@ object Warehouse:
     override def searchItems(tag: String): Sequence[Item] =
       items.filter(_.tags.contains(tag))
 
-    override def sameTag(t: String): String = ???
+    override def sameTag(t: String): String =
+      ExtractTag.unapply(items).getOrElse("")
 
+// Implement an extractor sameTag(t) on a list of Items that extracts the tag t in common to all items (if any)
 object ExtractTag:
-  def unapply(items: Sequence[Item]): Option[String] = ???
+  def unapply(items: Sequence[Item]): Option[String] = items match
+    case Sequence.Nil() => None
+    case Cons(head, tail) =>
+      val commonTag: Optional[String] =
+        tail.foldLeft(head.tags)((acc, item) => acc.intersect(item.tags)).head
+      if commonTag.isEmpty then None else Some(commonTag.orElse(""))
 
 @main def mainWarehouse(): Unit =
   val warehouse = Warehouse()
@@ -118,6 +126,10 @@ object ExtractTag:
   println(warehouse.retrieve(dellXps.code)) // Just(dellXps)
   warehouse.remove(dellXps) // side effect, remove dell xps from the warehouse
   println(warehouse.retrieve(dellXps.code)) // None
+  val otherWarehouse = Warehouse()
+  otherWarehouse.store(dellXps)
+  otherWarehouse.store(dellInspiron)
+  println(otherWarehouse.sameTag("notebook")) // notebook
 
 /** Hints:
   *   - Implement the Item with a simple case class
