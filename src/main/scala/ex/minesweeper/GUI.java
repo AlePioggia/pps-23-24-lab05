@@ -1,5 +1,5 @@
 package ex.minesweeper;
-
+/*
 import javax.swing.*;
 import java.util.*;
 import java.util.Map.Entry;
@@ -52,3 +52,4 @@ public class GUI extends JFrame {
     }
 
 }
+ */
